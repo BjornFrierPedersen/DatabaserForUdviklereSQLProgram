@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaserForUdviklereSQLProgram", "DatabaserForUdviklereSQLProgram\DatabaserForUdviklereSQLProgram.csproj", "{180BDFE0-382C-4B2E-A74C-ED03B3BF7C47}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{AE6461C4-A9E0-49FC-B9FC-40C993B73BF6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Models\Models.csproj", "{3B407E6C-E180-447D-B3C7-317F736B0079}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{180BDFE0-382C-4B2E-A74C-ED03B3BF7C47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{180BDFE0-382C-4B2E-A74C-ED03B3BF7C47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{180BDFE0-382C-4B2E-A74C-ED03B3BF7C47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{180BDFE0-382C-4B2E-A74C-ED03B3BF7C47}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE6461C4-A9E0-49FC-B9FC-40C993B73BF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE6461C4-A9E0-49FC-B9FC-40C993B73BF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE6461C4-A9E0-49FC-B9FC-40C993B73BF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE6461C4-A9E0-49FC-B9FC-40C993B73BF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B407E6C-E180-447D-B3C7-317F736B0079}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B407E6C-E180-447D-B3C7-317F736B0079}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B407E6C-E180-447D-B3C7-317F736B0079}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B407E6C-E180-447D-B3C7-317F736B0079}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
