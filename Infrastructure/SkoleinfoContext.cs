@@ -13,6 +13,7 @@ public partial class SkoleinfoContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder builder)
     {
         builder.UseSqlServer("Server=tcp:127.0.0.1;Database=skoleinfo;User Id=sa;Password=<YourStrong@Passw0rd>;TrustServerCertificate=True;");
+        builder.LogTo(Console.WriteLine);
     }
 
     public virtual DbSet<Institutioner> Institutioners { get; set; }

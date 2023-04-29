@@ -12,20 +12,36 @@ public class Repository
     
     public void CreateRandomDataset(int amount)
     {
+        var initialMaxKommuneNummer = _dbContext.Kommuners.Max(kommune => kommune.Nummer) + 1;
+        var initialMaxInstitutionsNummer = _dbContext.Institutioners.Max(institution => institution.Nummer) + 1;
+        var initialMaxSvarnummer = _dbContext.Svars.Max(svar => svar.Svarnummer) + 1;
+        
         for (int i = 0; i < amount; i++)
         {
-            var random = new Random();
+            (int newKommuneNummer, int newInstitutionsNummer, int? newSvarNummer) = 
+                CreateDataSeed(initialMaxKommuneNummer, initialMaxInstitutionsNummer, initialMaxSvarnummer);
+            
+            // reassign values
+            initialMaxInstitutionsNummer = newKommuneNummer;
+            initialMaxInstitutionsNummer = newInstitutionsNummer;
+            initialMaxSvarnummer = newSvarNummer;
+        }
+        
+        _dbContext.SaveChanges();
+    }
+
+    private ValueTuple<int, int, int?> CreateDataSeed(int initialMaxKommuneNummer, int initialMaxInstitutionsNummer, int? initialMaxSvarNummer)
+    {
+        var random = new Random();
             var koen = random.Next(1, 2);
             // Kommune
-            var maxKommuneNummer = _dbContext.Kommuners.Max(kommune => kommune.Nummer) + 1;
-            var kommune = new Kommuner(Guid.NewGuid(), maxKommuneNummer, $"kommune_{maxKommuneNummer}");
+            var kommune = new Kommuner(Guid.NewGuid(), initialMaxKommuneNummer, $"kommune_{initialMaxKommuneNummer}");
             _dbContext.Kommuners.Add(kommune);
 
             // Institution
-            var maxInstitutionsNummer = _dbContext.Institutioners.Max(institution => institution.Nummer) + 1;
-            var newInstitutionNavn = $"Institution_{maxInstitutionsNummer}";
+            var newInstitutionNavn = $"Institution_{initialMaxInstitutionsNummer}";
             var institution =
-                new Institutioner(Guid.NewGuid(), maxInstitutionsNummer, newInstitutionNavn, kommune.Nummer);
+                new Institutioner(Guid.NewGuid(), initialMaxInstitutionsNummer, newInstitutionNavn, kommune.Nummer);
             _dbContext.Institutioners.Add(institution);
 
             // Institutionsoplysninger
@@ -46,9 +62,8 @@ public class Repository
                 var spoergsmaal = _dbContext.Sporgsmaals.ToList()[random.Next(1, 50)];
 
                 // Svar
-                var maxSvarnummer = _dbContext.Svars.Max(svar => svar.Svarnummer) + 1;
                 var svarTexts = _dbContext.Svars.Select(svar => svar.Tekst).ToList();
-                var svar = new Svar(Guid.NewGuid(), spoergsmaal.Nummer, maxSvarnummer,
+                var svar = new Svar(Guid.NewGuid(), spoergsmaal.Nummer, initialMaxSvarNummer,
                     svarTexts.OrderBy(s => Guid.NewGuid()).First());
                 _dbContext.Svars.Add(svar);
                 
@@ -56,8 +71,14 @@ public class Repository
                 var trivsel = new Trivsel(Guid.NewGuid(), institution.Nummer, spoergsmaal.Nummer, svar.Svarnummer, koen,
                     random.Next(1, 100));
                 _dbContext.Trivsels.Add(trivsel);
+
+                initialMaxSvarNummer++;
             }
-            _dbContext.SaveChanges();
-        }
+            
+            initialMaxKommuneNummer++;
+            initialMaxInstitutionsNummer++;
+
+            return new ValueTuple<int, int, int?>(initialMaxKommuneNummer, initialMaxInstitutionsNummer,
+                initialMaxSvarNummer);
     }
 }
